@@ -9,7 +9,7 @@ import { useDrinks, useDrinkCategories } from "../hooks/useDrinks";
 export default function Employee() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  //pls deploy
+
   const {
     drinks,
     loading: drinksLoading,
