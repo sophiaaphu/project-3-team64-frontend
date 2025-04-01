@@ -40,6 +40,7 @@ export default function Employee() {
       </div>
     );
   }
+
   const imageMap: Record<string, string> = {
     "Classic Pearl Milk Tea": "/classic-pearl-milk-tea.png",
     "Honey Milk Tea": "/honey-milk-tea.png",
@@ -61,10 +62,12 @@ export default function Employee() {
     "Homemade Taro with Fresh Milk": "/homemade-taro-with-fresh-milk.png",
     "Matcha with Fresh Milk": "/matcha-with-fresh-milk.png",
     "Oreo Ice Blended with Pearl": "/oreo-ice-blended-with-pearl.png",
-    "Matcha Red Bean Ice Blended with Ice Cream": "/matcha-red-bean-ice-blended-with-ice-cream.png",
+    "Matcha Red Bean Ice Blended with Ice Cream":
+      "/matcha-red-bean-ice-blended-with-ice-cream.png",
     "Coffee Ice Blended with Ice Cream": "/coffee-ice-blended-with-ice-cream.png",
     "Mango Ice Blended with Ice Cream": "/mango-ice-blended-with-ice-cream.png",
-    "Strawberry Ice Blended with Lychee Jelly & Ice Cream": "/strawberry-ice-blended-with-lychee-and-ice-cream.png",
+    "Strawberry Ice Blended with Lychee Jelly & Ice Cream":
+      "/strawberry-ice-blended-with-lychee-and-ice-cream.png",
     "Lime Mojito": "/lime-mojito.png",
     "Mango Mojito": "/mango-mojito.png",
     "Peach Mojito": "/peach-mojito.png",
@@ -79,12 +82,16 @@ export default function Employee() {
     const matchesCategory = selectedCategory
       ? drink?.drink_category_id?.drink_category_name === selectedCategory
       : true;
-
     const matchesSearch = drink?.drink_name
       ?.toLowerCase()
       .includes(searchTerm.toLowerCase());
-
     return matchesCategory && matchesSearch;
+  });
+
+  const orderedDrinks = [...filteredDrinks].sort((a, b) => {
+    const aCat = a.drink_category_id?.drink_category_name || "";
+    const bCat = b.drink_category_id?.drink_category_name || "";
+    return aCat.localeCompare(bCat);
   });
 
   return (
@@ -96,14 +103,10 @@ export default function Employee() {
             onClick={() => setSelectedCategory(null)}
             className="cursor-pointer"
           >
-            <MenuCategory
-              categoryName="All Drinks"
-              itemCount={drinks.length}
-            />
+            <MenuCategory categoryName="All Drinks" itemCount={drinks.length} />
           </div>
           {categories.map((category, index) => {
             const categoryName = category.drink_category_name || "No Category";
-            // Calculate count of drinks in this category.
             const count = drinks.filter(
               (drink) =>
                 drink?.drink_category_id?.drink_category_name === categoryName
@@ -114,10 +117,7 @@ export default function Employee() {
                 onClick={() => setSelectedCategory(categoryName)}
                 className="cursor-pointer"
               >
-                <MenuCategory
-                  categoryName={categoryName}
-                  itemCount={count}
-                />
+                <MenuCategory categoryName={categoryName} itemCount={count} />
               </div>
             );
           })}
@@ -137,7 +137,7 @@ export default function Employee() {
         </div>
       </div>
       <div className="mt-2 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2">
-        {filteredDrinks.map((drink, index) => (
+        {orderedDrinks.map((drink, index) => (
           <DrinkCard
             key={index}
             drinkName={drink?.drink_name || "No Name"}
@@ -145,7 +145,9 @@ export default function Employee() {
               drink?.drink_category_id?.drink_category_name || "No Category"
             }
             drinkPrice={drink?.drink_price || 0}
-            imageSrc={imageMap[drink.drink_name] || "/classic-pearl-milk-tea.png"}
+            imageSrc={
+              imageMap[drink.drink_name] || "/classic-pearl-milk-tea.png"
+            }
             drinkId={drink?.drink_id}
             itemId={Date.now()}
           />
