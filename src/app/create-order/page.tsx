@@ -40,6 +40,40 @@ export default function Employee() {
       </div>
     );
   }
+  const imageMap: Record<string, string> = {
+    "Classic Pearl Milk Tea": "/classic-pearl-milk-tea.png",
+    "Honey Milk Tea": "/honey-milk-tea.png",
+    "Classic Coffee": "/classic-coffee.png",
+    "Ginger Milk Tea": "/ginger-milk-tea.png",
+    "Thai Pearl Milk Tea": "/thai-pearl-milk-tea.png",
+    "Taro Pearl Milk Tea": "/taro-milk-tea.png",
+    "Classic Tea": "/classic-tea.png",
+    "Wintermelon Tea": "/wintermelon-tea.png",
+    "Honey Tea": "/honey-tea.png",
+    "Ginger Tea": "/ginger-tea.png",
+    "Mango Green Tea": "/mango-green-tea.png",
+    "Wintermelon Lemonade": "/wintermelon-tea.png",
+    "Strawberry Tea": "/strawberry-tea.png",
+    "Peach Tea with Aiyu Jelly": "/peach-tea-with-aiyu-jelly.png",
+    "Kiwi Fruit Tea with Aiyu Jelly": "/kiwi-fruit-tea-with-aiyu-jelly.png",
+    "Mango & Passion Fruit Tea": "/mango-&-passion-fruit-tea.png",
+    "Cocoa Lover with Fresh Milk": "/cocoa-lover-with-fresh-milk.png",
+    "Homemade Taro with Fresh Milk": "/homemade-taro-with-fresh-milk.png",
+    "Matcha with Fresh Milk": "/matcha-with-fresh-milk.png",
+    "Oreo Ice Blended with Pearl": "/oreo-ice-blended-with-pearl.png",
+    "Matcha Red Bean Ice Blended with Ice Cream": "/matcha-red-bean-ice-blended-with-ice-cream.png",
+    "Coffee Ice Blended with Ice Cream": "/coffee-ice-blended-with-ice-cream.png",
+    "Mango Ice Blended with Ice Cream": "/mango-ice-blended-with-ice-cream.png",
+    "Strawberry Ice Blended with Lychee Jelly & Ice Cream": "/strawberry-ice-blended-with-lychee-and-ice-cream.png",
+    "Lime Mojito": "/lime-mojito.png",
+    "Mango Mojito": "/mango-mojito.png",
+    "Peach Mojito": "/peach-mojito.png",
+    "Strawberry Mojito": "/strawberry-mojito.png",
+    "Creama Tea": "/creama-tea.png",
+    "Match Creama": "/matcha-creama.png",
+    "Coffee Creama": "/coffee-creama.png",
+    "Cocoa Creama": "/cocoa-creama.png",
+  };
 
   const filteredDrinks = drinks.filter((drink) => {
     const matchesCategory = selectedCategory
@@ -111,10 +145,9 @@ export default function Employee() {
               drink?.drink_category_id?.drink_category_name || "No Category"
             }
             drinkPrice={drink?.drink_price || 0}
-            imageSrc={"/classic-pearl-milk-tea.png"}
+            imageSrc={imageMap[drink.drink_name] || "/classic-pearl-milk-tea.png"}
             drinkId={drink?.drink_id}
             itemId={Date.now()}
-            
           />
         ))}
       </div>
